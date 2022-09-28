@@ -1764,7 +1764,7 @@ class Parser {
         };
     }
 
-    private function parseRelativeSpecifier($parentNode) {
+    private function parseRelativeSpecifier($parentNode): ?RelativeSpecifier {
         $node = new RelativeSpecifier();
         $node->parent = $parentNode;
         $node->namespaceKeyword = $this->eatOptional1(TokenKind::NamespaceKeyword);
