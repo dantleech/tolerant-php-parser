@@ -1404,6 +1404,9 @@ class Parser {
         return $expression;
     }
 
+    /**
+     * Parses backtick token
+     */
     private function parseStringLiteralExpression2($parentNode) {
         // TODO validate input token
         $expression = new StringLiteral();
