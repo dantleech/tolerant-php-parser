@@ -587,6 +587,7 @@ abstract class Node implements \JsonSerializable {
             ? $this
             : $this->getFirstAncestor(NamespaceDefinition::class, SourceFileNode::class);
 
+        /** @phpstan-ignore-next-line TODO: can this happen? test with framework test cases */
         if ($namespaceDefinition instanceof NamespaceDefinition && !($namespaceDefinition->parent instanceof SourceFileNode)) {
             $namespaceDefinition = $namespaceDefinition->getFirstAncestor(SourceFileNode::class);
         }
