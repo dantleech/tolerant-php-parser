@@ -2215,6 +2215,7 @@ class Parser {
                     }
                     break;
                 case TokenKind::QuestionToken:
+                    /** @phpstan-ignore-next-line This seems impossible, questionToken is always set AFAICS but ignoring to be safe */
                     if ($parentNode instanceof TernaryExpression && !isset($parentNode->questionToken)) {
                         // Workaround to parse "a ? b : c ? d : e" as "(a ? b : c) ? d : e"
                         break 2;
