@@ -1655,7 +1655,7 @@ class Parser {
         do {
             if ($isElementStartFn($token)) {
                 $node->addElement($parseElementFn($node));
-            } elseif (!$allowEmptyElements || ($allowEmptyElements && !$this->checkAnyToken($delimiter))) {
+            } elseif (!$allowEmptyElements || !$this->checkAnyToken($delimiter)) {
                 break;
             }
 
