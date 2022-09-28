@@ -1404,10 +1404,7 @@ class Parser {
         return $expression;
     }
 
-    /**
-     * Parses backtick token
-     */
-    private function parseStringLiteralExpression2($parentNode) {
+    private function parseStringLiteralExpression2($parentNode): StringLiteral {
         // TODO validate input token
         $expression = new StringLiteral();
         $expression->parent = $parentNode;
@@ -1419,6 +1416,7 @@ class Parser {
                 case TokenKind::DollarOpenBraceToken:
                 case TokenKind::OpenBraceDollarToken:
                     $expression->children[] = $this->eat(TokenKind::DollarOpenBraceToken, TokenKind::OpenBraceDollarToken);
+                    /** @phpstan-ignore-next-line getCurrentToken is not pure, but PHPStan thinks its DollarOpenBrace or OpenBraceDollarToken */
                     if ($this->getCurrentToken()->kind === TokenKind::StringVarname) {
                         $expression->children[] = $this->parseComplexDollarTemplateStringExpression($expression);
                     } else {
