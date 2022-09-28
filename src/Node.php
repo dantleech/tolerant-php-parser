@@ -437,10 +437,7 @@ abstract class Node implements \JsonSerializable {
     public function getDescendantNodeAtPosition(int $pos) {
         foreach ($this->getChildNodes() as $child) {
             if ($child->containsPosition($pos)) {
-                $node = $child->getDescendantNodeAtPosition($pos);
-                if (!is_null($node)) {
-                    return $node;
-                }
+                return $child->getDescendantNodeAtPosition($pos);
             }
         }
 
