@@ -2114,7 +2114,7 @@ class Parser {
     /**
      * @param int $precedence
      * @param Node $parentNode
-     * @return Expression
+     * @return Expression|MissingToken
      */
     private function parseBinaryExpressionOrHigher($precedence, $parentNode) {
         $leftOperand = $this->parseUnaryExpressionOrHigher($parentNode);
