@@ -3559,7 +3559,7 @@ class Parser {
         return $namespaceUseDeclaration;
     }
 
-    private function parseNamespaceUseClauseList($parentNode): ?DemilitedList\NamespaceUseClauseList {
+    private function parseNamespaceUseClauseList($parentNode): ?DelimitedList\NamespaceUseClauseList {
         return $this->parseDelimitedList(
             DelimitedList\NamespaceUseClauseList::class,
             TokenKind::CommaToken,
@@ -3589,7 +3589,7 @@ class Parser {
         );
     }
 
-    private function parseNamespaceUseGroupClauseList($parentNode) {
+    private function parseNamespaceUseGroupClauseList($parentNode): ?DelimitedList\NamespaceUseGroupClauseList {
         return $this->parseDelimitedList(
             DelimitedList\NamespaceUseGroupClauseList::class,
             TokenKind::CommaToken,
