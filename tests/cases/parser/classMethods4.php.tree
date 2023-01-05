@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -33,6 +35,7 @@
                             "classMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -57,8 +60,11 @@
                                                 "children": [
                                                     {
                                                         "Parameter": {
+                                                            "attributes": null,
+                                                            "visibilityToken": null,
+                                                            "modifiers": null,
                                                             "questionToken": null,
-                                                            "typeDeclaration": null,
+                                                            "typeDeclarationList": null,
                                                             "byRefToken": null,
                                                             "dotDotDotToken": null,
                                                             "variableName": {
@@ -75,8 +81,11 @@
                                                     },
                                                     {
                                                         "Parameter": {
+                                                            "attributes": null,
+                                                            "visibilityToken": null,
+                                                            "modifiers": null,
                                                             "questionToken": null,
-                                                            "typeDeclaration": null,
+                                                            "typeDeclarationList": null,
                                                             "byRefToken": null,
                                                             "dotDotDotToken": null,
                                                             "variableName": {
@@ -99,9 +108,15 @@
                                             "textLength": 1
                                         },
                                         "questionToken": null,
-                                        "returnType": {
-                                            "kind": "IntReservedWord",
-                                            "textLength": 3
+                                        "returnTypeList": {
+                                            "QualifiedNameList": {
+                                                "children": [
+                                                    {
+                                                        "kind": "IntReservedWord",
+                                                        "textLength": 3
+                                                    }
+                                                ]
+                                            }
                                         },
                                         "compoundStatementOrSemicolon": {
                                             "CompoundStatementNode": {

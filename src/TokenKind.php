@@ -85,6 +85,13 @@ class TokenKind {
     const XorKeyword = 165;
     const YieldKeyword = 166;
     const YieldFromKeyword = 167;
+    const FnKeyword = 168;
+    const MatchKeyword = 169;
+    /** @deprecated use IterableReservedWord */
+    const IterableKeyword = self::IterableReservedWord;
+    const EnumKeyword = 171;
+    const ReadonlyKeyword = 172;
+    const HaltCompilerKeyword = 173;
 
     const OpenBracketToken = 201;
     const CloseBracketToken = 202;
@@ -146,6 +153,9 @@ class TokenKind {
     const AtSymbolToken = 259;
     const BacktickToken = 260;
     const QuestionToken = 261;
+    const QuestionQuestionEqualsToken = 262;
+    const QuestionArrowToken = 263;
+    const AttributeToken = 264;
 
     const DecimalLiteralToken = 301;
     const OctalLiteralToken = 302;
@@ -156,14 +166,6 @@ class TokenKind {
     const InvalidHexadecimalLiteral = 307;
     const InvalidBinaryLiteral = 308;
     const StringLiteralToken = 309;
-    const UnterminatedStringLiteralToken = 310;
-
-    const TemplateStringStart = 311;
-    const TemplateStringMiddle = 312;
-    const TemplateStringEnd = 313;
-    const NoSubstitutionTemplateLiteral = 314;
-    const UnterminatedNoSubstitutionTemplateLiteral = 315;
-    const UnterminatedTemplateStringEnd = 316;
 
     // RESERVED WORDS
     const IntReservedWord = 317;
@@ -172,10 +174,13 @@ class TokenKind {
     const StringReservedWord = 320;
     const BoolReservedWord = 321;
     const NullReservedWord = 322;
+    const MixedReservedWord = 340;
+    const IterableReservedWord = 170;
+    const NeverReservedWord = 341;
 
     const ScriptSectionStartTag = 323;
     const ScriptSectionEndTag = 324;
-
+    const ScriptSectionStartWithEchoTag = 419;
 
     // TODO how to handle incremental parsing w/ this?
     const ScriptSectionPrependedText = 325;
@@ -193,6 +198,8 @@ class TokenKind {
     const RealReservedWord = 335;
     const ReturnType = 336;
     const InlineHtml = 337;
+    const PropertyType = 338;
+    const EnumType = 339;
 
 //    const DollarOpenCurly = 339;
     const EncapsedAndWhitespace = 400;

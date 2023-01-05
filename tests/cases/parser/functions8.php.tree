@@ -13,6 +13,7 @@
             },
             {
                 "FunctionDeclaration": {
+                    "attributes": null,
                     "functionKeyword": {
                         "kind": "FunctionKeyword",
                         "textLength": 8
@@ -31,8 +32,11 @@
                             "children": [
                                 {
                                     "Parameter": {
+                                        "attributes": null,
+                                        "visibilityToken": null,
+                                        "modifiers": null,
                                         "questionToken": null,
-                                        "typeDeclaration": null,
+                                        "typeDeclarationList": null,
                                         "byRefToken": null,
                                         "dotDotDotToken": null,
                                         "variableName": {
@@ -49,8 +53,11 @@
                                 },
                                 {
                                     "Parameter": {
+                                        "attributes": null,
+                                        "visibilityToken": null,
+                                        "modifiers": null,
                                         "questionToken": null,
-                                        "typeDeclaration": null,
+                                        "typeDeclarationList": null,
                                         "byRefToken": null,
                                         "dotDotDotToken": null,
                                         "variableName": {
@@ -73,7 +80,7 @@
                         "textLength": 1
                     },
                     "questionToken": null,
-                    "returnType": {
+                    "returnTypeList": {
                         "error": "MissingToken",
                         "kind": "ReturnType",
                         "textLength": 0

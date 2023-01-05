@@ -13,6 +13,7 @@
             },
             {
                 "TraitDeclaration": {
+                    "attributes": null,
                     "traitKeyword": {
                         "kind": "TraitKeyword",
                         "textLength": 5
@@ -98,14 +99,20 @@
                                                                 "textLength": 9
                                                             },
                                                             "modifiers": [],
-                                                            "targetName": {
-                                                                "QualifiedName": {
-                                                                    "globalSpecifier": null,
-                                                                    "relativeSpecifier": null,
-                                                                    "nameParts": [
+                                                            "targetNameList": {
+                                                                "QualifiedNameList": {
+                                                                    "children": [
                                                                         {
-                                                                            "kind": "Name",
-                                                                            "textLength": 2
+                                                                            "QualifiedName": {
+                                                                                "globalSpecifier": null,
+                                                                                "relativeSpecifier": null,
+                                                                                "nameParts": [
+                                                                                    {
+                                                                                        "kind": "Name",
+                                                                                        "textLength": 2
+                                                                                    }
+                                                                                ]
+                                                                            }
                                                                         }
                                                                     ]
                                                                 }

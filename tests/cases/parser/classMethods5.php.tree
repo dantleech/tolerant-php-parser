@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -33,6 +35,7 @@
                             "classMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -59,7 +62,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "CompoundStatementNode": {
                                                 "openBrace": {
@@ -78,6 +81,7 @@
                                 },
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -104,7 +108,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "CompoundStatementNode": {
                                                 "openBrace": {

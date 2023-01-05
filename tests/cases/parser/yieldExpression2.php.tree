@@ -13,6 +13,7 @@
             },
             {
                 "FunctionDeclaration": {
+                    "attributes": null,
                     "functionKeyword": {
                         "kind": "FunctionKeyword",
                         "textLength": 8
@@ -33,7 +34,7 @@
                     },
                     "colonToken": null,
                     "questionToken": null,
-                    "returnType": null,
+                    "returnTypeList": null,
                     "compoundStatementOrSemicolon": {
                         "CompoundStatementNode": {
                             "openBrace": {
@@ -54,6 +55,7 @@
                                                         "elementKey": null,
                                                         "arrowToken": null,
                                                         "byRef": null,
+                                                        "dotDotDot": null,
                                                         "elementValue": {
                                                             "NumericLiteral": {
                                                                 "children": {

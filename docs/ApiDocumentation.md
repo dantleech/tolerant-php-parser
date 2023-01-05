@@ -10,15 +10,15 @@
 ```php
 public function getNodeKindName ( ) : string
 ```
-### Node::getStart
+### Node::getStartPosition
 Gets start position of Node, not including leading comments and whitespace.
 ```php
-public function getStart ( ) : int
+public function getStartPosition ( ) : int
 ```
-### Node::getFullStart
+### Node::getFullStartPosition
 Gets start position of Node, including leading comments and whitespace
 ```php
-public function getFullStart ( ) : int
+public function getFullStartPosition ( ) : int
 ```
 ### Node::getParent
 Gets parent of current node (returns null if has no parent)
@@ -198,11 +198,11 @@ public function getFullText ( string & $document ) : string
 ```php
 public function getStartPosition ( )
 ```
-### Token::getFullStart
+### Token::getFullStartPosition
 > TODO: add doc comment
 
 ```php
-public function getFullStart ( )
+public function getFullStartPosition ( )
 ```
 ### Token::getWidth
 > TODO: add doc comment
@@ -226,7 +226,7 @@ public function getEndPosition ( )
 > TODO: add doc comment
 
 ```php
-public static function getTokenKindNameFromValue ( $kindName )
+public static function getTokenKindNameFromValue ( $kind )
 ```
 ### Token::jsonSerialize
 > TODO: add doc comment

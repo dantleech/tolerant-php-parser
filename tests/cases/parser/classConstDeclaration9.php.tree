@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -33,6 +35,7 @@
                             "classMemberDeclarations": [
                                 {
                                     "ClassConstDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -108,43 +111,39 @@
                 }
             },
             {
-                "ExpressionStatement": {
-                    "expression": {
-                        "EchoExpression": {
-                            "echoKeyword": {
-                                "kind": "EchoKeyword",
-                                "textLength": 4
-                            },
-                            "expressions": {
-                                "ExpressionList": {
-                                    "children": [
-                                        {
-                                            "ScopedPropertyAccessExpression": {
-                                                "scopeResolutionQualifier": {
-                                                    "QualifiedName": {
-                                                        "globalSpecifier": null,
-                                                        "relativeSpecifier": null,
-                                                        "nameParts": [
-                                                            {
-                                                                "kind": "Name",
-                                                                "textLength": 1
-                                                            }
-                                                        ]
+                "EchoStatement": {
+                    "echoKeyword": {
+                        "kind": "EchoKeyword",
+                        "textLength": 4
+                    },
+                    "expressions": {
+                        "ExpressionList": {
+                            "children": [
+                                {
+                                    "ScopedPropertyAccessExpression": {
+                                        "scopeResolutionQualifier": {
+                                            "QualifiedName": {
+                                                "globalSpecifier": null,
+                                                "relativeSpecifier": null,
+                                                "nameParts": [
+                                                    {
+                                                        "kind": "Name",
+                                                        "textLength": 1
                                                     }
-                                                },
-                                                "doubleColon": {
-                                                    "kind": "ColonColonToken",
-                                                    "textLength": 2
-                                                },
-                                                "memberName": {
-                                                    "kind": "Name",
-                                                    "textLength": 1
-                                                }
+                                                ]
                                             }
+                                        },
+                                        "doubleColon": {
+                                            "kind": "ColonColonToken",
+                                            "textLength": 2
+                                        },
+                                        "memberName": {
+                                            "kind": "Name",
+                                            "textLength": 1
                                         }
-                                    ]
+                                    }
                                 }
-                            }
+                            ]
                         }
                     },
                     "semicolon": {

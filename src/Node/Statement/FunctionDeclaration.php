@@ -6,6 +6,7 @@
 
 namespace Microsoft\PhpParser\Node\Statement;
 
+use Microsoft\PhpParser\FunctionLike;
 use Microsoft\PhpParser\NamespacedNameInterface;
 use Microsoft\PhpParser\NamespacedNameTrait;
 use Microsoft\PhpParser\Node\FunctionBody;
@@ -13,12 +14,13 @@ use Microsoft\PhpParser\Node\FunctionHeader;
 use Microsoft\PhpParser\Node\FunctionReturnType;
 use Microsoft\PhpParser\Node\StatementNode;
 
-class FunctionDeclaration extends StatementNode implements NamespacedNameInterface {
+class FunctionDeclaration extends StatementNode implements NamespacedNameInterface, FunctionLike {
     use FunctionHeader, FunctionReturnType, FunctionBody;
     use NamespacedNameTrait;
 
     const CHILD_NAMES = [
         // FunctionHeader
+        'attributes',
         'functionKeyword',
         'byRefToken',
         'name',
@@ -29,7 +31,7 @@ class FunctionDeclaration extends StatementNode implements NamespacedNameInterfa
         // FunctionReturnType
         'colonToken',
         'questionToken',
-        'returnType',
+        'returnTypeList',
 
         // FunctionBody
         'compoundStatementOrSemicolon'

@@ -9,11 +9,13 @@ namespace Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Token;
 
 trait FunctionHeader {
+    /** @var AttributeGroup[]|null */
+    public $attributes;
     /** @var Token */
     public $functionKeyword;
     /** @var Token */
     public $byRefToken;
-    /** @var null | Token */
+    /** @var null|Token */
     public $name;
     /** @var Token */
     public $openParen;

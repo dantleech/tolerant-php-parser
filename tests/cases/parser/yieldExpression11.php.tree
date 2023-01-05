@@ -13,6 +13,7 @@
             },
             {
                 "FunctionDeclaration": {
+                    "attributes": null,
                     "functionKeyword": {
                         "kind": "FunctionKeyword",
                         "textLength": 8
@@ -33,7 +34,7 @@
                     },
                     "colonToken": null,
                     "questionToken": null,
-                    "returnType": null,
+                    "returnTypeList": null,
                     "compoundStatementOrSemicolon": {
                         "CompoundStatementNode": {
                             "openBrace": {
@@ -44,27 +45,26 @@
                                 {
                                     "ExpressionStatement": {
                                         "expression": {
-                                            "YieldExpression": {
-                                                "yieldOrYieldFromKeyword": {
-                                                    "kind": "YieldKeyword",
-                                                    "textLength": 5
-                                                },
-                                                "arrayElement": {
-                                                    "ArrayElement": {
-                                                        "elementKey": null,
-                                                        "arrowToken": null,
-                                                        "byRef": {
-                                                            "kind": "AmpersandToken",
-                                                            "textLength": 1
+                                            "BinaryExpression": {
+                                                "leftOperand": {
+                                                    "YieldExpression": {
+                                                        "yieldOrYieldFromKeyword": {
+                                                            "kind": "YieldKeyword",
+                                                            "textLength": 5
                                                         },
-                                                        "elementValue": {
-                                                            "Variable": {
-                                                                "dollar": null,
-                                                                "name": {
-                                                                    "kind": "VariableName",
-                                                                    "textLength": 2
-                                                                }
-                                                            }
+                                                        "arrayElement": null
+                                                    }
+                                                },
+                                                "operator": {
+                                                    "kind": "AmpersandToken",
+                                                    "textLength": 1
+                                                },
+                                                "rightOperand": {
+                                                    "Variable": {
+                                                        "dollar": null,
+                                                        "name": {
+                                                            "kind": "VariableName",
+                                                            "textLength": 2
                                                         }
                                                     }
                                                 }

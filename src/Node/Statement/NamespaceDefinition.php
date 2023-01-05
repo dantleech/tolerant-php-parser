@@ -6,16 +6,21 @@
 
 namespace Microsoft\PhpParser\Node\Statement;
 
+use Microsoft\PhpParser\MissingToken;
 use Microsoft\PhpParser\Node\QualifiedName;
 use Microsoft\PhpParser\Node\StatementNode;
 use Microsoft\PhpParser\Token;
+use Microsoft\PhpParser\Node\SourceFileNode;
 
+/**
+ * @property SourceFileNode $parent
+ */
 class NamespaceDefinition extends StatementNode {
     /** @var Token */
     public $namespaceKeyword;
-    /** @var QualifiedName | null */
+    /** @var QualifiedName|null|MissingToken */
     public $name;
-    /** @var CompoundStatementNode | Token */
+    /** @var CompoundStatementNode|Token */
     public $compoundStatementOrSemicolon;
 
     const CHILD_NAMES = [

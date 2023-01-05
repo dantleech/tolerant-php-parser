@@ -13,6 +13,7 @@
             },
             {
                 "TraitDeclaration": {
+                    "attributes": null,
                     "traitKeyword": {
                         "kind": "TraitKeyword",
                         "textLength": 5
@@ -78,7 +79,7 @@
                                                                 "textLength": 2
                                                             },
                                                             "modifiers": [],
-                                                            "targetName": {
+                                                            "targetNameList": {
                                                                 "QualifiedName": {
                                                                     "globalSpecifier": null,
                                                                     "relativeSpecifier": null,

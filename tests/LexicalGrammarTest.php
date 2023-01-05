@@ -5,24 +5,29 @@
  *--------------------------------------------------------------------------------------------*/
 
 use Microsoft\PhpParser\Token;
+use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Framework\BaseTestListener;
+use PHPUnit\Framework\AssertionFailedError;
+
+require_once __DIR__ . '/CallbackTestListener.php';
 
 class LexicalGrammarTest extends TestCase {
+    private $expectedTokensFile;
+    private $tokens;
     const FILE_PATTERN = __DIR__ . "/cases/lexical/*";
-    public function run(PHPUnit_Framework_TestResult $result = null) : PHPUnit_Framework_TestResult {
+    public function run(TestResult $result = null) : TestResult {
         if (!isset($GLOBALS["GIT_CHECKOUT_LEXER"])) {
             $GLOBALS["GIT_CHECKOUT_LEXER"] = true;
             exec("git -C " . dirname(self::FILE_PATTERN) . " checkout *.php.tokens");
         }
 
-        $result->addListener(new class() extends PHPUnit_Framework_BaseTestListener {
-            function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
-                if (isset($test->expectedTokensFile) && isset($test->tokens)) {
-                    file_put_contents($test->expectedTokensFile, str_replace("\r\n", "\n", $test->tokens));
-                }
-                parent::addFailure($test, $e, $time);
+        $result->addListener(new CallbackTestListener(function (Test $test) {
+            if (isset($test->expectedTokensFile) && isset($test->tokens)) {
+                file_put_contents($test->expectedTokensFile, str_replace("\r\n", "\n", $test->tokens));
             }
-        });
+        }));
 
         $result = parent::run($result);
         return $result;
@@ -54,7 +59,7 @@ class LexicalGrammarTest extends TestCase {
 
         $skipped = json_decode(file_get_contents(__DIR__ . "/skipped.json"));
 
-        $testProviderArray = array();
+        $testProviderArray = [];
         foreach ($testCases as $testCase) {
             if (in_array(basename($testCase), $skipped)) {
                 continue;
@@ -87,7 +92,7 @@ class LexicalGrammarTest extends TestCase {
     public function lexicalSpecProvider() {
         $testCases = glob(__dir__ . "/cases/php-langspec/**/*.php");
 
-        $testProviderArray = array();
+        $testProviderArray = [];
         foreach ($testCases as $testCase) {
             $testProviderArray[basename($testCase)] = [$testCase, $testCase . ".tree"];
         }

@@ -10,10 +10,10 @@ use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Token;
 
 class StringLiteral extends Expression {
-    /** @var Token */
+    /** @var Token|null */
     public $startQuote;
 
-    /** @var Token[] | Node[] */
+    /** @var Token[]|Node[]|Token */
     public $children;
 
     /** @var Token */
@@ -25,16 +25,29 @@ class StringLiteral extends Expression {
         'endQuote',
     ];
 
-    public function getStringContentsText() {
-        // TODO add tests
+    public function getStringContentsText(): string {
         $stringContents = "";
         if (isset($this->startQuote)) {
             foreach ($this->children as $child) {
-                $stringContents .= $child->getFullText($this->getFileContents());
+                $contents = $this->getFileContents();
+                $stringContents .= $child->getFullText($contents);
             }
         } else {
-            // TODO ensure string consistency (all strings should have start / end quote)
-            $stringContents = trim($this->children->getText($this->getFileContents()), '"\'');
+            $children = $this->children;
+            if ($children instanceof Token) {
+                $value = (string)$children->getText($this->getFileContents());
+                $startQuote = substr($value, 0, 1);
+
+                if ($startQuote === '\'') {
+                    return rtrim(substr($value, 1), '\'');
+                }
+
+                if ($startQuote === '"') {
+                    return rtrim(substr($value, 1), '"');
+                }
+            }
+
+            return '';
         }
         return $stringContents;
     }

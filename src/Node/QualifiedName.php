@@ -10,6 +10,7 @@ use Microsoft\PhpParser\NamespacedNameInterface;
 use Microsoft\PhpParser\NamespacedNameTrait;
 use Microsoft\PhpParser\Node;
 use Microsoft\PhpParser\Node\Expression\AnonymousFunctionCreationExpression;
+use Microsoft\PhpParser\Node\Expression\ArrowFunctionCreationExpression;
 use Microsoft\PhpParser\Node\Expression\CallExpression;
 use Microsoft\PhpParser\Node\Expression\ObjectCreationExpression;
 use Microsoft\PhpParser\ResolvedName;
@@ -19,9 +20,9 @@ use Microsoft\PhpParser\TokenKind;
 class QualifiedName extends Node implements NamespacedNameInterface {
     use NamespacedNameTrait;
 
-    /** @var Token */
+    /** @var Token|null */
     public $globalSpecifier; // \_opt
-    /** @var RelativeSpecifier */
+    /** @var RelativeSpecifier|null */
     public $relativeSpecifier; // namespace\
     /** @var array */
     public $nameParts;
@@ -75,24 +76,22 @@ class QualifiedName extends Node implements NamespacedNameInterface {
      * - name resolution is not valid for this element (e.g. part of the name in a namespace definition)
      * - name cannot be resolved (unqualified namespaced function/constant names that are not explicitly imported.)
      *
-     * @return null|ResolvedName
+     * @return null|string|ResolvedName
      * @throws \Exception
      */
     public function getResolvedName($namespaceDefinition = null) {
         // Name resolution not applicable to constructs that define symbol names or aliases.
-        if (($this->parent instanceof Node\Statement\NamespaceDefinition && $this->parent->name->getStart() === $this->getStart()) ||
+        if (($this->parent instanceof Node\Statement\NamespaceDefinition && $this->parent->name->getStartPosition() === $this->getStartPosition()) ||
             $this->parent instanceof Node\Statement\NamespaceUseDeclaration ||
             $this->parent instanceof Node\NamespaceUseClause ||
             $this->parent instanceof Node\NamespaceUseGroupClause ||
             $this->parent->parent instanceof Node\TraitUseClause ||
-            $this->parent instanceof Node\TraitSelectOrAliasClause ||
-            ($this->parent instanceof TraitSelectOrAliasClause &&
-            ($this->parent->asOrInsteadOfKeyword == null || $this->parent->asOrInsteadOfKeyword->kind === TokenKind::AsKeyword))
+            $this->parent instanceof Node\TraitSelectOrAliasClause
         ) {
             return null;
         }
 
-        if (array_search($lowerText = strtolower($this->getText()), ["self", "static", "parent"]) !== false) {
+        if (in_array($lowerText = strtolower($this->getText()), ["self", "static", "parent"])) {
             return $lowerText;
         }
 
@@ -109,7 +108,7 @@ class QualifiedName extends Node implements NamespacedNameInterface {
             return $this->getNamespacedName();
         }
 
-        list($namespaceImportTable, $functionImportTable, $constImportTable) = $this->getImportTablesForCurrentScope();
+        [$namespaceImportTable, $functionImportTable, $constImportTable] = $this->getImportTablesForCurrentScope();
 
         // QUALIFIED NAMES
         // - first segment of the name is translated according to the current class/namespace import table.
@@ -156,10 +155,8 @@ class QualifiedName extends Node implements NamespacedNameInterface {
 
     /**
      * @param ResolvedName[] $importTable
-     * @param bool $isCaseSensitive
-     * @return null
      */
-    private function tryResolveFromImportTable($importTable, bool $isCaseSensitive = false) {
+    private function tryResolveFromImportTable($importTable, bool $isCaseSensitive = false): ?ResolvedName {
         $content = $this->getFileContents();
         $index = $this->nameParts[0]->getText($content);
 //        if (!$isCaseSensitive) {
@@ -180,6 +177,7 @@ class QualifiedName extends Node implements NamespacedNameInterface {
                 $this->parent instanceof Node\Expression\MemberAccessExpression || $this->parent instanceof CallExpression ||
                 $this->parent instanceof ObjectCreationExpression ||
                 $this->parent instanceof Node\Expression\ScopedPropertyAccessExpression || $this->parent instanceof AnonymousFunctionCreationExpression ||
+                $this->parent instanceof ArrowFunctionCreationExpression ||
                 ($this->parent instanceof Node\Expression\BinaryExpression && $this->parent->operator->kind === TokenKind::InstanceOfKeyword)
             );
     }

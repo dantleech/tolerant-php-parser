@@ -9,54 +9,61 @@
                         "textLength": 4
                     },
                     "scriptSectionStartTag": {
-                        "kind": "ScriptSectionStartTag",
+                        "kind": "ScriptSectionStartWithEchoTag",
                         "textLength": 3
                     }
                 }
             },
             {
-                "ExpressionStatement": {
-                    "expression": {
-                        "AssignmentExpression": {
-                            "leftOperand": {
-                                "Variable": {
-                                    "dollar": null,
-                                    "name": {
-                                        "kind": "VariableName",
-                                        "textLength": 8
-                                    }
-                                }
-                            },
-                            "operator": {
-                                "kind": "EqualsToken",
-                                "textLength": 1
-                            },
-                            "byRef": null,
-                            "rightOperand": {
-                                "CallExpression": {
-                                    "callableExpression": {
-                                        "QualifiedName": {
-                                            "globalSpecifier": null,
-                                            "relativeSpecifier": null,
-                                            "nameParts": [
-                                                {
-                                                    "kind": "Name",
+                "EchoStatement": {
+                    "echoKeyword": null,
+                    "expressions": {
+                        "ExpressionList": {
+                            "children": [
+                                {
+                                    "AssignmentExpression": {
+                                        "leftOperand": {
+                                            "Variable": {
+                                                "dollar": null,
+                                                "name": {
+                                                    "kind": "VariableName",
+                                                    "textLength": 8
+                                                }
+                                            }
+                                        },
+                                        "operator": {
+                                            "kind": "EqualsToken",
+                                            "textLength": 1
+                                        },
+                                        "byRef": null,
+                                        "rightOperand": {
+                                            "CallExpression": {
+                                                "callableExpression": {
+                                                    "QualifiedName": {
+                                                        "globalSpecifier": null,
+                                                        "relativeSpecifier": null,
+                                                        "nameParts": [
+                                                            {
+                                                                "kind": "Name",
+                                                                "textLength": 1
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                "openParen": {
+                                                    "kind": "OpenParenToken",
+                                                    "textLength": 1
+                                                },
+                                                "argumentExpressionList": null,
+                                                "closeParen": {
+                                                    "kind": "CloseParenToken",
                                                     "textLength": 1
                                                 }
-                                            ]
+                                            }
                                         }
-                                    },
-                                    "openParen": {
-                                        "kind": "OpenParenToken",
-                                        "textLength": 1
-                                    },
-                                    "argumentExpressionList": null,
-                                    "closeParen": {
-                                        "kind": "CloseParenToken",
-                                        "textLength": 1
                                     }
                                 }
-                            }
+                            ]
                         }
                     },
                     "semicolon": {
@@ -67,6 +74,7 @@
             },
             {
                 "FunctionDeclaration": {
+                    "attributes": null,
                     "functionKeyword": {
                         "kind": "FunctionKeyword",
                         "textLength": 8
@@ -87,7 +95,7 @@
                     },
                     "colonToken": null,
                     "questionToken": null,
-                    "returnType": null,
+                    "returnTypeList": null,
                     "compoundStatementOrSemicolon": {
                         "CompoundStatementNode": {
                             "openBrace": {
@@ -125,28 +133,24 @@
                 }
             },
             {
-                "ExpressionStatement": {
-                    "expression": {
-                        "EchoExpression": {
-                            "echoKeyword": {
-                                "kind": "EchoKeyword",
-                                "textLength": 4
-                            },
-                            "expressions": {
-                                "ExpressionList": {
-                                    "children": [
-                                        {
-                                            "Variable": {
-                                                "dollar": null,
-                                                "name": {
-                                                    "kind": "VariableName",
-                                                    "textLength": 8
-                                                }
-                                            }
+                "EchoStatement": {
+                    "echoKeyword": {
+                        "kind": "EchoKeyword",
+                        "textLength": 4
+                    },
+                    "expressions": {
+                        "ExpressionList": {
+                            "children": [
+                                {
+                                    "Variable": {
+                                        "dollar": null,
+                                        "name": {
+                                            "kind": "VariableName",
+                                            "textLength": 8
                                         }
-                                    ]
+                                    }
                                 }
-                            }
+                            ]
                         }
                     },
                     "semicolon": {

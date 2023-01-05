@@ -6,13 +6,19 @@
                     "scriptSectionEndTag": null,
                     "text": null,
                     "scriptSectionStartTag": {
-                        "kind": "ScriptSectionStartTag",
+                        "kind": "ScriptSectionStartWithEchoTag",
                         "textLength": 3
                     }
                 }
             },
             {
-                "EmptyStatement": {
+                "EchoStatement": {
+                    "echoKeyword": null,
+                    "expressions": {
+                        "error": "MissingToken",
+                        "kind": "Expression",
+                        "textLength": 0
+                    },
                     "semicolon": {
                         "kind": "SemicolonToken",
                         "textLength": 1

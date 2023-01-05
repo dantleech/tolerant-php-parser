@@ -6,19 +6,27 @@
 
 namespace Microsoft\PhpParser\Node\Statement;
 
+use Microsoft\PhpParser\ClassLike;
 use Microsoft\PhpParser\NamespacedNameInterface;
 use Microsoft\PhpParser\NamespacedNameTrait;
+use Microsoft\PhpParser\Node\AttributeGroup;
 use Microsoft\PhpParser\Node\ClassBaseClause;
 use Microsoft\PhpParser\Node\ClassInterfaceClause;
 use Microsoft\PhpParser\Node\ClassMembersNode;
 use Microsoft\PhpParser\Node\StatementNode;
 use Microsoft\PhpParser\Token;
 
-class ClassDeclaration extends StatementNode implements NamespacedNameInterface {
+class ClassDeclaration extends StatementNode implements NamespacedNameInterface, ClassLike {
     use NamespacedNameTrait;
 
-    /** @var Token */
+    /** @var AttributeGroup[]|null */
+    public $attributes;
+
+    /** @var Token abstract/final/readonly modifier */
     public $abstractOrFinalModifier;
+
+    /** @var Token[] additional abstract/final/readonly modifiers */
+    public $modifiers;
 
     /** @var Token */
     public $classKeyword;
@@ -36,7 +44,9 @@ class ClassDeclaration extends StatementNode implements NamespacedNameInterface 
     public $classMembers;
 
     const CHILD_NAMES = [
+        'attributes',
         'abstractOrFinalModifier',
+        'modifiers',
         'classKeyword',
         'name',
         'classBaseClause',

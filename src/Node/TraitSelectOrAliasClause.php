@@ -6,26 +6,30 @@
 
 namespace Microsoft\PhpParser\Node;
 
+use Microsoft\PhpParser\ModifiedTypeInterface;
+use Microsoft\PhpParser\ModifiedTypeTrait;
 use Microsoft\PhpParser\Node;
+use Microsoft\PhpParser\Node\DelimitedList\QualifiedNameList;
 use Microsoft\PhpParser\Token;
 
-class TraitSelectOrAliasClause extends Node {
-    /** @var QualifiedName | Node\Expression\ScopedPropertyAccessExpression */
+class TraitSelectOrAliasClause extends Node implements ModifiedTypeInterface {
+    use ModifiedTypeTrait;
+
+    /** @var QualifiedName|Node\Expression\ScopedPropertyAccessExpression */
     public $name;
 
     /** @var Token */
     public $asOrInsteadOfKeyword;
 
-    /** @var Token[] */
-    public $modifiers;
-
-    /** @var QualifiedName | Node\Expression\ScopedPropertyAccessExpression */
-    public $targetName;
+    /**
+     * @var QualifiedNameList|QualifiedName depends on the keyword
+     */
+    public $targetNameList;
 
     const CHILD_NAMES = [
         'name',
         'asOrInsteadOfKeyword',
         'modifiers',
-        'targetName'
+        'targetNameList',
     ];
 }

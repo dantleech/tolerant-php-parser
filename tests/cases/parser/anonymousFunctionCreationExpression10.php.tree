@@ -31,6 +31,7 @@
                             "byRef": null,
                             "rightOperand": {
                                 "AnonymousFunctionCreationExpression": {
+                                    "attributes": null,
                                     "staticModifier": null,
                                     "functionKeyword": {
                                         "kind": "FunctionKeyword",
@@ -83,9 +84,15 @@
                                         "textLength": 1
                                     },
                                     "questionToken": null,
-                                    "returnType": {
-                                        "kind": "VoidReservedWord",
-                                        "textLength": 4
+                                    "returnTypeList": {
+                                        "QualifiedNameList": {
+                                            "children": [
+                                                {
+                                                    "kind": "VoidReservedWord",
+                                                    "textLength": 4
+                                                }
+                                            ]
+                                        }
                                     },
                                     "compoundStatementOrSemicolon": {
                                         "CompoundStatementNode": {

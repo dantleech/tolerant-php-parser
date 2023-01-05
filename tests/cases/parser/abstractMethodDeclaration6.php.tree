@@ -18,10 +18,12 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": {
                         "kind": "AbstractKeyword",
                         "textLength": 8
                     },
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -41,6 +43,7 @@
                             "classMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "AbstractKeyword",
@@ -70,9 +73,15 @@
                                             "textLength": 1
                                         },
                                         "questionToken": null,
-                                        "returnType": {
-                                            "kind": "BoolReservedWord",
-                                            "textLength": 4
+                                        "returnTypeList": {
+                                            "QualifiedNameList": {
+                                                "children": [
+                                                    {
+                                                        "kind": "BoolReservedWord",
+                                                        "textLength": 4
+                                                    }
+                                                ]
+                                            }
                                         },
                                         "compoundStatementOrSemicolon": {
                                             "kind": "SemicolonToken",

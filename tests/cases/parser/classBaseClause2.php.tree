@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -28,7 +30,11 @@
                                 "kind": "ExtendsKeyword",
                                 "textLength": 7
                             },
-                            "baseClass": null
+                            "baseClass": {
+                                "error": "MissingToken",
+                                "kind": "QualifiedName",
+                                "textLength": 0
+                            }
                         }
                     },
                     "classInterfaceClause": null,

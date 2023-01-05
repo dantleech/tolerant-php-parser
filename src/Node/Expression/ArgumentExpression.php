@@ -6,21 +6,26 @@
 
 namespace Microsoft\PhpParser\Node\Expression;
 
+use Microsoft\PhpParser\MissingToken;
 use Microsoft\PhpParser\Node\Expression;
 use Microsoft\PhpParser\Token;
 
 class ArgumentExpression extends Expression {
-    /** @var Token | null */
-    public $byRefToken; // TODO removed in newer versions of PHP. Also only accept variable, not expression if byRef
+    /** @var Token|null for php named arguments. If this is set, dotDotDotToken will not be set. */
+    public $name;
 
-    /** @var Token | null */
+    /** @var Token|null */
+    public $colonToken;
+
+    /** @var Token|null */
     public $dotDotDotToken;
 
-    /** @var Expression */
+    /** @var Expression|MissingToken|null for first-class callable syntax */
     public $expression;
 
     const CHILD_NAMES = [
-        'byRefToken',
+        'name',
+        'colonToken',
         'dotDotDotToken',
         'expression'
     ];

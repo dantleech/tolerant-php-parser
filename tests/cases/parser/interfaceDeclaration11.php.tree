@@ -13,6 +13,7 @@
             },
             {
                 "InterfaceDeclaration": {
+                    "attributes": null,
                     "interfaceKeyword": {
                         "kind": "InterfaceKeyword",
                         "textLength": 9
@@ -31,6 +32,7 @@
                             "interfaceMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -57,7 +59,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "kind": "SemicolonToken",
                                             "textLength": 1
@@ -66,6 +68,7 @@
                                 },
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -92,7 +95,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "kind": "SemicolonToken",
                                             "textLength": 1

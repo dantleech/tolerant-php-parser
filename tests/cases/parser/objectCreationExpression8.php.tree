@@ -19,6 +19,7 @@
                                 "kind": "NewKeyword",
                                 "textLength": 3
                             },
+                            "attributes": null,
                             "classTypeDesignator": {
                                 "kind": "ClassKeyword",
                                 "textLength": 5
@@ -32,7 +33,8 @@
                                     "children": [
                                         {
                                             "ArgumentExpression": {
-                                                "byRefToken": null,
+                                                "name": null,
+                                                "colonToken": null,
                                                 "dotDotDotToken": null,
                                                 "expression": {
                                                     "NumericLiteral": {
@@ -50,7 +52,8 @@
                                         },
                                         {
                                             "ArgumentExpression": {
-                                                "byRefToken": null,
+                                                "name": null,
+                                                "colonToken": null,
                                                 "dotDotDotToken": null,
                                                 "expression": {
                                                     "NumericLiteral": {
@@ -80,6 +83,7 @@
                                     "classMemberDeclarations": [
                                         {
                                             "MethodDeclaration": {
+                                                "attributes": null,
                                                 "modifiers": [
                                                     {
                                                         "kind": "PublicKeyword",
@@ -106,7 +110,7 @@
                                                 },
                                                 "colonToken": null,
                                                 "questionToken": null,
-                                                "returnType": null,
+                                                "returnTypeList": null,
                                                 "compoundStatementOrSemicolon": {
                                                     "CompoundStatementNode": {
                                                         "openBrace": {

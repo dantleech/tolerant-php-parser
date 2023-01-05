@@ -13,6 +13,7 @@
             },
             {
                 "InterfaceDeclaration": {
+                    "attributes": null,
                     "interfaceKeyword": {
                         "kind": "InterfaceKeyword",
                         "textLength": 9
@@ -31,6 +32,7 @@
                             "interfaceMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -55,8 +57,11 @@
                                                 "children": [
                                                     {
                                                         "Parameter": {
+                                                            "attributes": null,
+                                                            "visibilityToken": null,
+                                                            "modifiers": null,
                                                             "questionToken": null,
-                                                            "typeDeclaration": null,
+                                                            "typeDeclarationList": null,
                                                             "byRefToken": null,
                                                             "dotDotDotToken": null,
                                                             "variableName": {
@@ -73,8 +78,11 @@
                                                     },
                                                     {
                                                         "Parameter": {
+                                                            "attributes": null,
+                                                            "visibilityToken": null,
+                                                            "modifiers": null,
                                                             "questionToken": null,
-                                                            "typeDeclaration": null,
+                                                            "typeDeclarationList": null,
                                                             "byRefToken": null,
                                                             "dotDotDotToken": null,
                                                             "variableName": {
@@ -94,7 +102,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "kind": "SemicolonToken",
                                             "textLength": 1

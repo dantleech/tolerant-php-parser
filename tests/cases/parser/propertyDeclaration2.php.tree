@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -33,12 +35,15 @@
                             "classMemberDeclarations": [
                                 {
                                     "PropertyDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
                                                 "textLength": 6
                                             }
                                         ],
+                                        "questionToken": null,
+                                        "typeDeclarationList": null,
                                         "propertyElements": {
                                             "ExpressionList": {
                                                 "children": [

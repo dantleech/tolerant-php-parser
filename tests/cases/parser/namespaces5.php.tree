@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -33,6 +35,7 @@
                             "classMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [],
                                         "functionKeyword": {
                                             "kind": "FunctionKeyword",
@@ -57,30 +60,36 @@
                                             "textLength": 1
                                         },
                                         "questionToken": null,
-                                        "returnType": {
-                                            "QualifiedName": {
-                                                "globalSpecifier": null,
-                                                "relativeSpecifier": null,
-                                                "nameParts": [
+                                        "returnTypeList": {
+                                            "QualifiedNameList": {
+                                                "children": [
                                                     {
-                                                        "kind": "Name",
-                                                        "textLength": 10
-                                                    },
-                                                    {
-                                                        "kind": "BackslashToken",
-                                                        "textLength": 1
-                                                    },
-                                                    {
-                                                        "kind": "Name",
-                                                        "textLength": 10
-                                                    },
-                                                    {
-                                                        "kind": "BackslashToken",
-                                                        "textLength": 1
-                                                    },
-                                                    {
-                                                        "kind": "Name",
-                                                        "textLength": 6
+                                                        "QualifiedName": {
+                                                            "globalSpecifier": null,
+                                                            "relativeSpecifier": null,
+                                                            "nameParts": [
+                                                                {
+                                                                    "kind": "Name",
+                                                                    "textLength": 10
+                                                                },
+                                                                {
+                                                                    "kind": "BackslashToken",
+                                                                    "textLength": 1
+                                                                },
+                                                                {
+                                                                    "kind": "Name",
+                                                                    "textLength": 10
+                                                                },
+                                                                {
+                                                                    "kind": "BackslashToken",
+                                                                    "textLength": 1
+                                                                },
+                                                                {
+                                                                    "kind": "Name",
+                                                                    "textLength": 6
+                                                                }
+                                                            ]
+                                                        }
                                                     }
                                                 ]
                                             }

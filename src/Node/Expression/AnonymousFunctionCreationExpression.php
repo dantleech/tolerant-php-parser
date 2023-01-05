@@ -6,6 +6,7 @@
 
 namespace Microsoft\PhpParser\Node\Expression;
 
+use Microsoft\PhpParser\FunctionLike;
 use Microsoft\PhpParser\Node\Expression;
 use Microsoft\PhpParser\Node\FunctionBody;
 use Microsoft\PhpParser\Node\FunctionHeader;
@@ -13,13 +14,14 @@ use Microsoft\PhpParser\Node\FunctionReturnType;
 use Microsoft\PhpParser\Node\FunctionUseClause;
 use Microsoft\PhpParser\Token;
 
-class AnonymousFunctionCreationExpression extends Expression {
-    /** @var Token | null */
+class AnonymousFunctionCreationExpression extends Expression implements FunctionLike {
+    /** @var Token|null */
     public $staticModifier;
 
     use FunctionHeader, FunctionUseClause, FunctionReturnType, FunctionBody;
 
     const CHILD_NAMES = [
+        'attributes',
         'staticModifier',
 
         // FunctionHeader
@@ -36,7 +38,7 @@ class AnonymousFunctionCreationExpression extends Expression {
         // FunctionReturnType
         'colonToken',
         'questionToken',
-        'returnType',
+        'returnTypeList',
 
         // FunctionBody
         'compoundStatementOrSemicolon'

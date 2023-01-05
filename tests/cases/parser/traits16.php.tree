@@ -13,6 +13,7 @@
             },
             {
                 "TraitDeclaration": {
+                    "attributes": null,
                     "traitKeyword": {
                         "kind": "TraitKeyword",
                         "textLength": 5
@@ -78,53 +79,80 @@
                                                                 "textLength": 9
                                                             },
                                                             "modifiers": [],
-                                                            "targetName": {
-                                                                "ScopedPropertyAccessExpression": {
-                                                                    "scopeResolutionQualifier": {
-                                                                        "QualifiedName": {
-                                                                            "globalSpecifier": null,
-                                                                            "relativeSpecifier": null,
-                                                                            "nameParts": [
-                                                                                {
-                                                                                    "kind": "Name",
-                                                                                    "textLength": 1
-                                                                                }
-                                                                            ]
+                                                            "targetNameList": {
+                                                                "QualifiedNameList": {
+                                                                    "children": [
+                                                                        {
+                                                                            "QualifiedName": {
+                                                                                "globalSpecifier": null,
+                                                                                "relativeSpecifier": null,
+                                                                                "nameParts": [
+                                                                                    {
+                                                                                        "kind": "Name",
+                                                                                        "textLength": 1
+                                                                                    }
+                                                                                ]
+                                                                            }
                                                                         }
-                                                                    },
-                                                                    "doubleColon": {
-                                                                        "kind": "ColonColonToken",
-                                                                        "textLength": 2
-                                                                    },
-                                                                    "memberName": {
-                                                                        "kind": "Name",
-                                                                        "textLength": 1
-                                                                    }
+                                                                    ]
                                                                 }
                                                             }
                                                         }
-                                                    },
-                                                    {
-                                                        "kind": "SemicolonToken",
-                                                        "textLength": 1
                                                     }
                                                 ]
                                             }
                                         },
                                         "closeBrace": {
+                                            "error": "MissingToken",
                                             "kind": "CloseBraceToken",
-                                            "textLength": 1
+                                            "textLength": 0
                                         }
                                     }
+                                },
+                                {
+                                    "error": "SkippedToken",
+                                    "kind": "ColonColonToken",
+                                    "textLength": 2
                                 }
                             ],
                             "closeBrace": {
+                                "error": "MissingToken",
                                 "kind": "CloseBraceToken",
-                                "textLength": 1
+                                "textLength": 0
                             }
                         }
                     }
                 }
+            },
+            {
+                "ExpressionStatement": {
+                    "expression": {
+                        "QualifiedName": {
+                            "globalSpecifier": null,
+                            "relativeSpecifier": null,
+                            "nameParts": [
+                                {
+                                    "kind": "Name",
+                                    "textLength": 1
+                                }
+                            ]
+                        }
+                    },
+                    "semicolon": {
+                        "kind": "SemicolonToken",
+                        "textLength": 1
+                    }
+                }
+            },
+            {
+                "error": "SkippedToken",
+                "kind": "CloseBraceToken",
+                "textLength": 1
+            },
+            {
+                "error": "SkippedToken",
+                "kind": "CloseBraceToken",
+                "textLength": 1
             }
         ],
         "endOfFileToken": {

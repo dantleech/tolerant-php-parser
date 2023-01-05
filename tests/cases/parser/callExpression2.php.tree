@@ -33,7 +33,8 @@
                                     "children": [
                                         {
                                             "ArgumentExpression": {
-                                                "byRefToken": null,
+                                                "name": null,
+                                                "colonToken": null,
                                                 "dotDotDotToken": null,
                                                 "expression": {
                                                     "Variable": {

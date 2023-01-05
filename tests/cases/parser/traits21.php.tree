@@ -13,7 +13,9 @@
             },
             {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": null,
+                    "modifiers": [],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -84,7 +86,7 @@
                                                                 "textLength": 2
                                                             },
                                                             "modifiers": [],
-                                                            "targetName": {
+                                                            "targetNameList": {
                                                                 "QualifiedName": {
                                                                     "globalSpecifier": null,
                                                                     "relativeSpecifier": null,
@@ -144,7 +146,7 @@
                                                                 "textLength": 2
                                                             },
                                                             "modifiers": [],
-                                                            "targetName": {
+                                                            "targetNameList": {
                                                                 "QualifiedName": {
                                                                     "globalSpecifier": null,
                                                                     "relativeSpecifier": null,

@@ -41,23 +41,25 @@
                                     "kind": "OpenParenToken",
                                     "textLength": 1
                                 },
-                                "qualifiedName": {
-                                    "QualifiedName": {
-                                        "globalSpecifier": null,
-                                        "relativeSpecifier": null,
-                                        "nameParts": [
+                                "qualifiedNameList": {
+                                    "QualifiedNameList": {
+                                        "children": [
                                             {
-                                                "kind": "Name",
-                                                "textLength": 5
+                                                "QualifiedName": {
+                                                    "globalSpecifier": null,
+                                                    "relativeSpecifier": null,
+                                                    "nameParts": [
+                                                        {
+                                                            "kind": "Name",
+                                                            "textLength": 5
+                                                        }
+                                                    ]
+                                                }
                                             }
                                         ]
                                     }
                                 },
-                                "variableName": {
-                                    "error": "MissingToken",
-                                    "kind": "VariableName",
-                                    "textLength": 0
-                                },
+                                "variableName": null,
                                 "closeParen": {
                                     "kind": "CloseParenToken",
                                     "textLength": 1

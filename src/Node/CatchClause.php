@@ -7,6 +7,8 @@
 namespace Microsoft\PhpParser\Node;
 
 use Microsoft\PhpParser\Node;
+use Microsoft\PhpParser\Node\DelimitedList\QualifiedNameList;
+use Microsoft\PhpParser\MissingToken;
 use Microsoft\PhpParser\Token;
 
 class CatchClause extends Node {
@@ -14,9 +16,9 @@ class CatchClause extends Node {
     public $catch;
     /** @var Token */
     public $openParen;
-    /** @var QualifiedName */
-    public $qualifiedName;
-    /** @var Token */
+    /** @var QualifiedNameList[]|MissingToken */
+    public $qualifiedNameList;
+    /** @var Token|null */
     public $variableName;
     /** @var Token */
     public $closeParen;
@@ -26,7 +28,7 @@ class CatchClause extends Node {
     const CHILD_NAMES = [
         'catch',
         'openParen',
-        'qualifiedName',
+        'qualifiedNameList',
         'variableName',
         'closeParen',
         'compoundStatement'

@@ -35,9 +35,18 @@
                                         "kind": "NewKeyword",
                                         "textLength": 3
                                     },
+                                    "attributes": null,
                                     "classTypeDesignator": {
-                                        "kind": "StaticKeyword",
-                                        "textLength": 6
+                                        "QualifiedName": {
+                                            "globalSpecifier": null,
+                                            "relativeSpecifier": null,
+                                            "nameParts": [
+                                                {
+                                                    "kind": "Name",
+                                                    "textLength": 6
+                                                }
+                                            ]
+                                        }
                                     },
                                     "openParen": {
                                         "kind": "OpenParenToken",

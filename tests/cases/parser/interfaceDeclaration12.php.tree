@@ -13,6 +13,7 @@
             },
             {
                 "InterfaceDeclaration": {
+                    "attributes": null,
                     "interfaceKeyword": {
                         "kind": "InterfaceKeyword",
                         "textLength": 9
@@ -31,6 +32,7 @@
                             "interfaceMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -57,7 +59,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "CompoundStatementNode": {
                                                 "openBrace": {
@@ -77,6 +79,7 @@
                                 },
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [
                                             {
                                                 "kind": "PublicKeyword",
@@ -103,7 +106,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "CompoundStatementNode": {
                                                 "openBrace": {

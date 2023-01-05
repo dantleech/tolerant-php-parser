@@ -11,12 +11,15 @@ use Microsoft\PhpParser\Node\NamespaceUseGroupClause;
 use Microsoft\PhpParser\Node\SourceFileNode;
 use Microsoft\PhpParser\Node\Statement\NamespaceDefinition;
 use Microsoft\PhpParser\Node\Statement\NamespaceUseDeclaration;
+use ReturnTypeWillChange;
 
 abstract class Node implements \JsonSerializable {
+    const CHILD_NAMES = [];
+
     /** @var array[] Map from node class to array of child keys */
     private static $childNames = [];
 
-    /** @var Node | null */
+    /** @var Node|null */
     public $parent;
 
     public function getNodeKindName() : string {
@@ -29,14 +32,8 @@ abstract class Node implements \JsonSerializable {
      * @return int
      * @throws \Exception
      */
-    public function getStart() : int {
-        $child = $this->getChildNodesAndTokens()->current();
-        if ($child instanceof Node) {
-            return $child->getStart();
-        } elseif ($child instanceof Token) {
-            return $child->start;
-        }
-        throw new \Exception("Unknown type in AST");
+    public function getStartPosition() : int {
+        return $this->getChildNodesAndTokens()->current()->getStartPosition();
     }
 
     /**
@@ -44,26 +41,23 @@ abstract class Node implements \JsonSerializable {
      * @return int
      * @throws \Exception
      */
-    public function getFullStart() : int {
+    public function getFullStartPosition() : int {
         foreach($this::CHILD_NAMES as $name) {
+
             if (($child = $this->$name) !== null) {
+
                 if (\is_array($child)) {
-                    if (isset($child[0])) {
-                        $child = $child[0];
-                    } else {
+                    if(!isset($child[0])) {
                         continue;
                     }
+                    $child = $child[0];
                 }
-                if ($child instanceof Node) {
-                    return $child->getFullStart();
-                } elseif ($child instanceof Token) {
-                    return $child->fullStart;
-                }
-                throw new \Exception("Unknown type in AST: " . \gettype($child));
+
+                return $child->getFullStartPosition();
             }
         };
 
-        throw new \Exception("Unknown type in AST: " . \gettype($child));
+        throw new \RuntimeException("Could not resolve full start position");
     }
 
     /**
@@ -78,7 +72,7 @@ abstract class Node implements \JsonSerializable {
      * Gets first ancestor that is an instance of one of the provided classes.
      * Returns null if there is no match.
      *
-     * @param array ...$classNames
+     * @param string ...$classNames
      * @return Node|null
      */
     public function getFirstAncestor(...$classNames) {
@@ -97,7 +91,7 @@ abstract class Node implements \JsonSerializable {
      * Gets first child that is an instance of one of the provided classes.
      * Returns null if there is no match.
      *
-     * @param array ...$classNames
+     * @param string ...$classNames
      * @return Node|null
      */
     public function getFirstChildNode(...$classNames) {
@@ -123,7 +117,7 @@ abstract class Node implements \JsonSerializable {
      * Gets first descendant node that is an instance of one of the provided classes.
      * Returns null if there is no match.
      *
-     * @param array ...$classNames
+     * @param string ...$classNames
      * @return Node|null
      */
     public function getFirstDescendantNode(...$classNames) {
@@ -139,13 +133,15 @@ abstract class Node implements \JsonSerializable {
 
     /**
      * Gets root of the syntax tree (returns self if has no parents)
-     * @return Node
+     * @return SourceFileNode (expect root to be SourceFileNode unless the tree was manipulated)
      */
     public function getRoot() : Node {
         $node = $this;
         while ($node->parent !== null) {
             $node = $node->parent;
         }
+
+        /** @var SourceFileNode $node */
         return $node;
     }
 
@@ -159,13 +155,51 @@ abstract class Node implements \JsonSerializable {
         // TODO - write unit tests to prove invariants
         // (concatenating all descendant Tokens should produce document, concatenating all Nodes should produce document)
         foreach ($this->getChildNodesAndTokens() as $child) {
+            // Check possible types of $child, most frequent first
             if ($child instanceof Node) {
                 yield $child;
-                if ($shouldDescendIntoChildrenFn == null || $shouldDescendIntoChildrenFn($child)) {
-                    yield from $child->getDescendantNodesAndTokens($shouldDescendIntoChildrenFn);
+                if ($shouldDescendIntoChildrenFn === null || $shouldDescendIntoChildrenFn($child)) {
+                   yield from $child->getDescendantNodesAndTokens($shouldDescendIntoChildrenFn);
                 }
             } elseif ($child instanceof Token) {
                 yield $child;
+            }
+        }
+    }
+
+    /**
+     * Iterate over all descendant Nodes and Tokens, calling $callback.
+     * This can often be faster than getDescendantNodesAndTokens
+     * if you just need to call something and don't need a generator.
+     *
+     * @param callable $callback a callback that accepts Node|Token
+     * @param callable|null $shouldDescendIntoChildrenFn
+     * @return void
+     */
+    public function walkDescendantNodesAndTokens(callable $callback, callable $shouldDescendIntoChildrenFn = null) {
+        // TODO - write unit tests to prove invariants
+        // (concatenating all descendant Tokens should produce document, concatenating all Nodes should produce document)
+        foreach (static::CHILD_NAMES as $name) {
+            $child = $this->$name;
+            // Check possible types of $child, most frequent first
+            if ($child instanceof Token) {
+                $callback($child);
+            } elseif ($child instanceof Node) {
+                $callback($child);
+                if ($shouldDescendIntoChildrenFn === null || $shouldDescendIntoChildrenFn($child)) {
+                   $child->walkDescendantNodesAndTokens($callback, $shouldDescendIntoChildrenFn);
+                }
+            } elseif (\is_array($child)) {
+                foreach ($child as $childElement) {
+                    if ($childElement instanceof Token) {
+                        $callback($childElement);
+                    } elseif ($childElement instanceof Node) {
+                        $callback($childElement);
+                        if ($shouldDescendIntoChildrenFn === null || $shouldDescendIntoChildrenFn($childElement)) {
+                           $childElement->walkDescendantNodesAndTokens($callback, $shouldDescendIntoChildrenFn);
+                        }
+                    }
+                }
             }
         }
     }
@@ -187,7 +221,7 @@ abstract class Node implements \JsonSerializable {
     /**
      * Gets generator containing all descendant Tokens.
      * @param callable|null $shouldDescendIntoChildrenFn
-     * @return \Generator | Token[]
+     * @return \Generator|Token[]
      */
     public function getDescendantTokens(callable $shouldDescendIntoChildrenFn = null) {
         foreach ($this->getChildNodesAndTokens() as $child) {
@@ -205,7 +239,7 @@ abstract class Node implements \JsonSerializable {
      * Gets generator containing all child Nodes and Tokens (direct descendants).
      * Does not return null elements.
      *
-     * @return \Generator | Token[] | Node[]
+     * @return \Generator|Token[]|Node[]
      */
     public function getChildNodesAndTokens() : \Generator {
         foreach ($this::CHILD_NAMES as $name) {
@@ -227,7 +261,7 @@ abstract class Node implements \JsonSerializable {
 
     /**
      * Gets generator containing all child Nodes (direct descendants)
-     * @return \Generator | Node[]
+     * @return \Generator|Node[]
      */
     public function getChildNodes() : \Generator {
         foreach ($this::CHILD_NAMES as $name) {
@@ -285,7 +319,7 @@ abstract class Node implements \JsonSerializable {
      * @return int
      */
     public function getWidth() : int {
-        $first = $this->getStart();
+        $first = $this->getStartPosition();
         $last = $this->getEndPosition();
 
         return $last - $first;
@@ -297,7 +331,7 @@ abstract class Node implements \JsonSerializable {
      * @return int
      */
     public function getFullWidth() : int {
-        $first = $this->getFullStart();
+        $first = $this->getFullStartPosition();
         $last = $this->getEndPosition();
 
         return $last - $first;
@@ -308,7 +342,7 @@ abstract class Node implements \JsonSerializable {
      * @return string
      */
     public function getText() : string {
-        $start = $this->getStart();
+        $start = $this->getStartPosition();
         $end = $this->getEndPosition();
 
         $fileContents = $this->getFileContents();
@@ -320,7 +354,7 @@ abstract class Node implements \JsonSerializable {
      * @return string
      */
     public function getFullText() : string {
-        $start = $this->getFullStart();
+        $start = $this->getFullStartPosition();
         $end = $this->getEndPosition();
 
         $fileContents = $this->getFileContents();
@@ -338,16 +372,18 @@ abstract class Node implements \JsonSerializable {
         foreach ($this->getDescendantTokens() as $token) {
             return $token->getLeadingCommentsAndWhitespaceText($fileContents);
         }
+        return '';
     }
 
     protected function getChildrenKvPairs() {
-        $result = array();
+        $result = [];
         foreach ($this::CHILD_NAMES as $name) {
             $result[$name] = $this->$name;
         }
         return $result;
     }
 
+    #[ReturnTypeWillChange]
     public function jsonSerialize() {
         $kindName = $this->getNodeKindName();
         return ["$kindName" => $this->getChildrenKvPairs()];
@@ -383,7 +419,7 @@ abstract class Node implements \JsonSerializable {
         return $this->getRoot()->fileContents;
     }
 
-    public function getUri() : string {
+    public function getUri() : ?string {
         return $this->getRoot()->uri;
     }
 
@@ -395,16 +431,13 @@ abstract class Node implements \JsonSerializable {
     /**
      * Searches descendants to find a Node at the given position.
      *
-     * @param $pos
-     * @return Node|null
+     * @param int $pos
+     * @return Node
      */
     public function getDescendantNodeAtPosition(int $pos) {
-        foreach ($this->getChildNodes() as $name => $child) {
+        foreach ($this->getChildNodes() as $child) {
             if ($child->containsPosition($pos)) {
-                $node = $child->getDescendantNodeAtPosition($pos);
-                if (!is_null($node)) {
-                    return $node;
-                }
+                return $child->getDescendantNodeAtPosition($pos);
             }
         }
 
@@ -417,7 +450,7 @@ abstract class Node implements \JsonSerializable {
      * @return bool
      */
     private function containsPosition(int $pos): bool {
-        return $this->getStart() <= $pos && $pos <= $this->getEndPosition();
+        return $this->getStartPosition() <= $pos && $pos <= $this->getEndPosition();
     }
 
     /**
@@ -425,12 +458,12 @@ abstract class Node implements \JsonSerializable {
      * Returns last doc comment in leading comment / whitespace trivia,
      * and returns null if there is no preceding doc comment.
      *
-     * @return string | null
+     * @return string|null
      */
     public function getDocCommentText() {
         $leadingTriviaText = $this->getLeadingCommentAndWhitespaceText();
         $leadingTriviaTokens = PhpTokenizer::getTokensArrayFromContent(
-            $leadingTriviaText, ParseContext::SourceElements, $this->getFullStart(), false
+            $leadingTriviaText, ParseContext::SourceElements, $this->getFullStartPosition(), false
         );
         for ($i = \count($leadingTriviaTokens) - 1; $i >= 0; $i--) {
             $token = $leadingTriviaTokens[$i];
@@ -446,11 +479,11 @@ abstract class Node implements \JsonSerializable {
     }
 
     /**
-     * @return array | ResolvedName[][]
+     * @return array|ResolvedName[][]
      * @throws \Exception
      */
     public function getImportTablesForCurrentScope() {
-        $namespaceDefinition = $namespaceDefinition ?? $this->getNamespaceDefinition();
+        $namespaceDefinition = $this->getNamespaceDefinition();
 
         // Use declarations can exist in either the global scope, or inside namespace declarations.
         // http://php.net/manual/en/language.namespaces.importing.php#language.namespaces.importing.scope
@@ -463,13 +496,13 @@ abstract class Node implements \JsonSerializable {
             $topLevelNamespaceStatements = $namespaceDefinition->compoundStatementOrSemicolon instanceof Token
                 ? $namespaceDefinition->parent->statementList // we need to start from the namespace definition.
                 : $namespaceDefinition->compoundStatementOrSemicolon->statements;
-            $namespaceFullStart = $namespaceDefinition->getFullStart();
+            $namespaceFullStart = $namespaceDefinition->getFullStartPosition();
         } else {
             $topLevelNamespaceStatements = $this->getRoot()->statementList;
             $namespaceFullStart = 0;
         }
 
-        $nodeFullStart = $this->getFullStart();
+        $nodeFullStart = $this->getFullStartPosition();
 
         // TODO optimize performance
         // Currently we rebuild the import tables on every call (and therefore every name resolution operation)
@@ -489,10 +522,10 @@ abstract class Node implements \JsonSerializable {
         $contents = $this->getFileContents();
 
         foreach ($topLevelNamespaceStatements as $useDeclaration) {
-            if ($useDeclaration->getFullStart() <= $namespaceFullStart) {
+            if ($useDeclaration->getFullStartPosition() <= $namespaceFullStart) {
                 continue;
             }
-            if ($useDeclaration->getFullStart() > $nodeFullStart) {
+            if ($useDeclaration->getFullStartPosition() > $nodeFullStart) {
                 break;
             } elseif (!($useDeclaration instanceof NamespaceUseDeclaration)) {
                 continue;
@@ -547,13 +580,14 @@ abstract class Node implements \JsonSerializable {
     /**
      * Gets corresponding NamespaceDefinition for Node. Returns null if in global namespace.
      *
-     * @return NamespaceDefinition | null
+     * @return NamespaceDefinition|null
      */
     public function getNamespaceDefinition() {
-        $namespaceDefinition = $this instanceof NamespaceDefinition
+        $namespaceDefinition = ($this instanceof NamespaceDefinition || $this instanceof SourceFileNode)
             ? $this
             : $this->getFirstAncestor(NamespaceDefinition::class, SourceFileNode::class);
 
+        /** @phpstan-ignore-next-line TODO: can this happen? test with framework test cases */
         if ($namespaceDefinition instanceof NamespaceDefinition && !($namespaceDefinition->parent instanceof SourceFileNode)) {
             $namespaceDefinition = $namespaceDefinition->getFirstAncestor(SourceFileNode::class);
         }
@@ -563,11 +597,11 @@ abstract class Node implements \JsonSerializable {
             throw new \Exception("Invalid tree - SourceFileNode must always exist at root of tree.");
         }
 
-        $fullStart = $this->getFullStart();
+        $fullStart = $this->getFullStartPosition();
         $lastNamespaceDefinition = null;
         if ($namespaceDefinition instanceof SourceFileNode) {
             foreach ($namespaceDefinition->getChildNodes() as $childNode) {
-                if ($childNode instanceof NamespaceDefinition && $childNode->getFullStart() < $fullStart) {
+                if ($childNode instanceof NamespaceDefinition && $childNode->getFullStartPosition() < $fullStart) {
                     $lastNamespaceDefinition = $childNode;
                 }
             }
@@ -579,6 +613,7 @@ abstract class Node implements \JsonSerializable {
             $namespaceDefinition = null;
         }
 
+        /** @var NamespaceDefinition|null $namespaceDefinition */
         return $namespaceDefinition;
     }
 
@@ -616,7 +651,7 @@ abstract class Node implements \JsonSerializable {
      * Add the alias and resolved name to the corresponding namespace, function, or const import table.
      * If the alias already exists, it will get replaced by the most recent using.
      *
-     * TODO - worth throwing an error here in stead?
+     * TODO - worth throwing an error here instead?
      */
     private function addToImportTable($alias, $functionOrConst, $namespaceNameParts, $contents, & $namespaceImportTable, & $functionImportTable, & $constImportTable):array
     {
@@ -625,19 +660,28 @@ abstract class Node implements \JsonSerializable {
                 // namespaces are case-insensitive
 //                $alias = \strtolower($alias);
                 $namespaceImportTable[$alias] = ResolvedName::buildName($namespaceNameParts, $contents);
-                return array($namespaceImportTable, $functionImportTable, $constImportTable);
+                return [$namespaceImportTable, $functionImportTable, $constImportTable];
             } elseif ($functionOrConst->kind === TokenKind::FunctionKeyword) {
                 // functions are case-insensitive
 //                $alias = \strtolower($alias);
                 $functionImportTable[$alias] = ResolvedName::buildName($namespaceNameParts, $contents);
-                return array($namespaceImportTable, $functionImportTable, $constImportTable);
+                return [$namespaceImportTable, $functionImportTable, $constImportTable];
             } elseif ($functionOrConst->kind === TokenKind::ConstKeyword) {
                 // constants are case-sensitive
                 $constImportTable[$alias] = ResolvedName::buildName($namespaceNameParts, $contents);
-                return array($namespaceImportTable, $functionImportTable, $constImportTable);
+                return [$namespaceImportTable, $functionImportTable, $constImportTable];
             }
-            return array($namespaceImportTable, $functionImportTable, $constImportTable);
+            return [$namespaceImportTable, $functionImportTable, $constImportTable];
         }
-        return array($namespaceImportTable, $functionImportTable, $constImportTable);
+        return [$namespaceImportTable, $functionImportTable, $constImportTable];
+    }
+
+    /**
+     * This is overridden in subclasses
+     * @return Diagnostic|null - Callers should use DiagnosticsProvider::getDiagnostics instead
+     * @internal
+     */
+    public function getDiagnosticForNode() {
+        return null;
     }
 }

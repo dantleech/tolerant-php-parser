@@ -9,7 +9,7 @@ namespace Microsoft\PhpParser;
 use Microsoft\PhpParser\TokenKind;
 
 class TokenStringMaps {
-    const KEYWORDS = array(
+    const KEYWORDS = [
         "abstract" => TokenKind::AbstractKeyword,
         "and" => TokenKind::AndKeyword,
         "array" => TokenKind::ArrayKeyword,
@@ -36,6 +36,7 @@ class TokenStringMaps {
         "endif" => TokenKind::EndIfKeyword,
         "endswitch" => TokenKind::EndSwitchKeyword,
         "endwhile" => TokenKind::EndWhileKeyword,
+        "enum" => TokenKind::EnumKeyword,
         "eval" => TokenKind::EvalKeyword,
         "exit" => TokenKind::ExitKeyword,
         "extends" => TokenKind::ExtendsKeyword,
@@ -43,6 +44,7 @@ class TokenStringMaps {
         "finally" => TokenKind::FinallyKeyword,
         "for" => TokenKind::ForKeyword,
         "foreach" => TokenKind::ForeachKeyword,
+        "fn" => TokenKind::FnKeyword,
         "function" => TokenKind::FunctionKeyword,
         "global" => TokenKind::GlobalKeyword,
         "goto" => TokenKind::GotoKeyword,
@@ -55,6 +57,7 @@ class TokenStringMaps {
         "interface" => TokenKind::InterfaceKeyword,
         "isset" => TokenKind::IsSetKeyword,
         "list" => TokenKind::ListKeyword,
+        "match" => TokenKind::MatchKeyword,
         "namespace" => TokenKind::NamespaceKeyword,
         "new" => TokenKind::NewKeyword,
         "or" => TokenKind::OrKeyword,
@@ -62,6 +65,7 @@ class TokenStringMaps {
         "private" => TokenKind::PrivateKeyword,
         "protected" => TokenKind::ProtectedKeyword,
         "public" => TokenKind::PublicKeyword,
+        "readonly" => TokenKind::ReadonlyKeyword,
         "require" => TokenKind::RequireKeyword,
         "require_once" => TokenKind::RequireOnceKeyword,
         "return" => TokenKind::ReturnKeyword,
@@ -80,7 +84,7 @@ class TokenStringMaps {
 
 
         // TODO soft reserved words?
-    );
+    ];
 
     const RESERVED_WORDS = [
         // http://php.net/manual/en/reserved.constants.php
@@ -102,10 +106,13 @@ class TokenStringMaps {
         "integer" => TokenKind::IntegerReservedWord,
         "object" => TokenKind::ObjectReservedWord,
         "real" => TokenKind::RealReservedWord,
-        "void" => TokenKind::VoidReservedWord
+        "void" => TokenKind::VoidReservedWord,
+        "iterable" => TokenKind::IterableReservedWord,
+        "mixed" => TokenKind::MixedReservedWord,
+        "never" => TokenKind::NeverReservedWord,
     ];
 
-    const OPERATORS_AND_PUNCTUATORS = array(
+    const OPERATORS_AND_PUNCTUATORS = [
         "[" => TokenKind::OpenBracketToken,
         "]" => TokenKind::CloseBracketToken,
         "(" => TokenKind::OpenParenToken,
@@ -159,12 +166,14 @@ class TokenStringMaps {
         "^=" => TokenKind::CaretEqualsToken,
         "|=" => TokenKind::BarEqualsToken,
         "," => TokenKind::CommaToken,
+        "?->" => TokenKind::QuestionArrowToken,
         "??" => TokenKind::QuestionQuestionToken,
+        "??=" => TokenKind::QuestionQuestionEqualsToken,
         "<=>" => TokenKind::LessThanEqualsGreaterThanToken,
         "<>" => TokenKind::LessThanGreaterThanToken,
         "..." => TokenKind::DotDotDotToken,
         "\\" => TokenKind::BackslashToken,
-        "<?=" => TokenKind::ScriptSectionStartTag, // TODO, technically not an operator
+        "<?=" => TokenKind::ScriptSectionStartWithEchoTag, // TODO, technically not an operator
         "<?php " => TokenKind::ScriptSectionStartTag, // TODO, technically not an operator
         "<?php\t" => TokenKind::ScriptSectionStartTag, // TODO add tests
         "<?php\n" => TokenKind::ScriptSectionStartTag,
@@ -176,7 +185,7 @@ class TokenStringMaps {
         "?>\r" => TokenKind::ScriptSectionEndTag, // TODO, technically not an operator
         "@" => TokenKind::AtSymbolToken, // TODO not in spec
         "`" => TokenKind::BacktickToken
-    );
+    ];
 
 // TODO add new tokens
 }

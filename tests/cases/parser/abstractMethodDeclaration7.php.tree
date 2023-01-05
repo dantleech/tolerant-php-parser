@@ -12,16 +12,18 @@
                 }
             },
             {
-                "error": "SkippedToken",
-                "kind": "AbstractKeyword",
-                "textLength": 8
-            },
-            {
                 "ClassDeclaration": {
+                    "attributes": null,
                     "abstractOrFinalModifier": {
-                        "kind": "FinalKeyword",
-                        "textLength": 5
+                        "kind": "AbstractKeyword",
+                        "textLength": 8
                     },
+                    "modifiers": [
+                        {
+                            "kind": "FinalKeyword",
+                            "textLength": 5
+                        }
+                    ],
                     "classKeyword": {
                         "kind": "ClassKeyword",
                         "textLength": 5
@@ -41,6 +43,7 @@
                             "classMemberDeclarations": [
                                 {
                                     "MethodDeclaration": {
+                                        "attributes": null,
                                         "modifiers": [],
                                         "functionKeyword": {
                                             "kind": "FunctionKeyword",
@@ -62,7 +65,7 @@
                                         },
                                         "colonToken": null,
                                         "questionToken": null,
-                                        "returnType": null,
+                                        "returnTypeList": null,
                                         "compoundStatementOrSemicolon": {
                                             "CompoundStatementNode": {
                                                 "openBrace": {

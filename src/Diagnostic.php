@@ -6,8 +6,6 @@
 
 namespace Microsoft\PhpParser;
 
-use Microsoft\PhpParser\Node;
-
 class Diagnostic {
     /** @var int */
     public $kind;
@@ -27,9 +25,4 @@ class Diagnostic {
         $this->start = $start;
         $this->length = $length;
     }
-}
-
-class DiagnosticKind {
-    const Error = 0;
-    const Warning = 1;
 }

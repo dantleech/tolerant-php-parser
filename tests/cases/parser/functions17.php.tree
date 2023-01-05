@@ -13,6 +13,7 @@
             },
             {
                 "FunctionDeclaration": {
+                    "attributes": null,
                     "functionKeyword": {
                         "kind": "FunctionKeyword",
                         "textLength": 8
@@ -31,18 +32,27 @@
                             "children": [
                                 {
                                     "Parameter": {
+                                        "attributes": null,
+                                        "visibilityToken": null,
+                                        "modifiers": null,
                                         "questionToken": {
                                             "kind": "QuestionToken",
                                             "textLength": 1
                                         },
-                                        "typeDeclaration": {
-                                            "QualifiedName": {
-                                                "globalSpecifier": null,
-                                                "relativeSpecifier": null,
-                                                "nameParts": [
+                                        "typeDeclarationList": {
+                                            "QualifiedNameList": {
+                                                "children": [
                                                     {
-                                                        "kind": "Name",
-                                                        "textLength": 7
+                                                        "QualifiedName": {
+                                                            "globalSpecifier": null,
+                                                            "relativeSpecifier": null,
+                                                            "nameParts": [
+                                                                {
+                                                                    "kind": "Name",
+                                                                    "textLength": 7
+                                                                }
+                                                            ]
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -63,13 +73,22 @@
                                 },
                                 {
                                     "Parameter": {
+                                        "attributes": null,
+                                        "visibilityToken": null,
+                                        "modifiers": null,
                                         "questionToken": {
                                             "kind": "QuestionToken",
                                             "textLength": 1
                                         },
-                                        "typeDeclaration": {
-                                            "kind": "IntReservedWord",
-                                            "textLength": 3
+                                        "typeDeclarationList": {
+                                            "QualifiedNameList": {
+                                                "children": [
+                                                    {
+                                                        "kind": "IntReservedWord",
+                                                        "textLength": 3
+                                                    }
+                                                ]
+                                            }
                                         },
                                         "byRefToken": null,
                                         "dotDotDotToken": null,
@@ -93,9 +112,15 @@
                         "textLength": 1
                     },
                     "questionToken": null,
-                    "returnType": {
-                        "kind": "IntReservedWord",
-                        "textLength": 3
+                    "returnTypeList": {
+                        "QualifiedNameList": {
+                            "children": [
+                                {
+                                    "kind": "IntReservedWord",
+                                    "textLength": 3
+                                }
+                            ]
+                        }
                     },
                     "compoundStatementOrSemicolon": {
                         "CompoundStatementNode": {
